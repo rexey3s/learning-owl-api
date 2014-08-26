@@ -52,7 +52,7 @@ public class App
 		
 		OWLDataProperty logicProp = factory.getOWLDataProperty(":logicQuiz", pm);
 		OWLDataProperty functionalProp = factory.getOWLDataProperty(":functionalQuiz",pm);
-		Set<OWLNamedIndividual> namedIndividuals = reasoner.getInstances(factory.getOWLClass(":Transportation",pm),true).getFlattened();
+		Set<OWLNamedIndividual> namedIndividuals = reasoner.getInstances(factory.getOWLClass(":Transportation",pm),false).getFlattened();
 		Set<OWLDataProperty> dataProperties = new HashSet<OWLDataProperty>();
 		
 		for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
@@ -103,12 +103,10 @@ public class App
 		for (OWLNamedIndividual individual : namedIndividuals) {
 			for (OWLDataProperty prop : dataProperties) {
 				Set<OWLClassExpression> assertedClasses = individual.getTypes(ontology);
-				for (OWLClass c : reasoner.getTypes(individual, false).getFlattened()) {
+				for (OWLClass c : reasoner.getTypes(individual, true).getFlattened()) {
 					boolean asserted = assertedClasses.contains(c);
 					System.out.println((asserted ? "asserted" : "inferred") + " class for individual: "+renderer.render(c)); 
-					for(OWLClassExpression ce : c.getSuperClasses(ontology)) {
-						System.out.println("\t\t\t"+ renderer.render(c) +" has superClass -> "+ renderer.render(ce));
-					}				
+								
 				}
 //				for (OWLClass c : reasoner.getTypes(individual,true).getFlattened()) {
 //					System.out.println(c);
