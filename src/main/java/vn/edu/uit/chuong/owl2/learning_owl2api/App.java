@@ -59,11 +59,67 @@ public class App
 			for(OWLDataProperty property : rule.getDataPropertiesInSignature()) {
 				if(!dataProperties.contains(property)) {
 					dataProperties.add(property);
-					System.out.println(property.getDomains(ontology));
 				}
+			}
+		}
+//		for (OWLNamedIndividual individual : namedIndividuals) {
+//			for (OWLDataProperty prop : dataProperties) {
+//				if(prop.getSuperProperties(ontology).contains(logicProp)) {
+//					if(renderer.render(prop).contains("can")) {
+//						String propShortName = renderer.render(prop).substring(3);
+//						System.out.println("Can the named individual '"+renderer.render(individual)+"'"+propShortName+"? [Yes/No]");
+//						String answer = input.next().toLowerCase();
+//						while(!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no") && !answer.equalsIgnoreCase("none")) {
+//							System.out.println("Please type only 'yes' or 'no' !");
+//							answer = input.next().toString().toLowerCase();
+//						};
+//						if(answer.equalsIgnoreCase("yes")) {
+//							OWLAxiom propAxiom = factory.getOWLDataPropertyAssertionAxiom(prop, individual, true);
+//							manager.applyChange(new AddAxiom(ontology, propAxiom));
+//							manager.saveOntology(ontology);
+//							reasoner.flush(); 
+//							// Get first OWLClass in the Set<OWLClass> which is inferred by the reasoner 
+//							System.out.println("With the given data property you've just defined. Now the individuals named '"+renderer.render(individual)+"' belongs to a new class -> "+renderer.render(reasoner.getTypes(individual,true).getFlattened().iterator().next()));
+//							
+//						} else if(answer.equalsIgnoreCase("no")) {
+//							OWLAxiom propAxiom = factory.getOWLDataPropertyAssertionAxiom(prop, individual, false);
+//							manager.applyChange(new AddAxiom(ontology, propAxiom));
+//							manager.saveOntology(ontology);
+//							reasoner.flush(); 
+//							System.out.println("With the given data property you've just defined. Now the individuals named '"+renderer.render(individual)+"' belongs to a new class -> "+renderer.render(reasoner.getTypes(individual,true).getFlattened().iterator().next()));
+//						}
+//						else {
+//							System.out.println("None was defined! ");
+//						}
+//					} // Maybe more data properties if need
+//				}
+//			}
+		OWLClass transportationClass = factory.getOWLClass(":Transportation",pm);
+		
+		// Get all individuals who have type "Transportation"
+		for(OWLNamedIndividual t : reasoner.getInstances(transportationClass,false).getFlattened()) {
+			System.out.println("Transportation : "+renderer.render(t));
+		}
+		for (OWLNamedIndividual individual : namedIndividuals) {
+			for (OWLDataProperty prop : dataProperties) {
+				Set<OWLClassExpression> assertedClasses = individual.getTypes(ontology);
+				for (OWLClass c : reasoner.getTypes(individual, false).getFlattened()) {
+					boolean asserted = assertedClasses.contains(c);
+					System.out.println((asserted ? "asserted" : "inferred") + " class for individual: "+renderer.render(c)); 
+					for(OWLClassExpression ce : c.getSuperClasses(ontology)) {
+						System.out.println("\t\t\t"+ renderer.render(c) +" has superClass -> "+ renderer.render(ce));
+					}				
+				}
+//				for (OWLClass c : reasoner.getTypes(individual,true).getFlattened()) {
+//					System.out.println(c);
+//					if(prop.getDomains(ontology).contains(c)) {
+//						System.out.println(prop+" ->"+c);
+//					}
+//				}
 			}
 		}
 		
 		
     }
+	
 }
