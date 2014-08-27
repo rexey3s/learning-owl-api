@@ -74,13 +74,30 @@ public class App
 				}
 			}
 		}
-		System.out.println(objProperties);
+		//
 		Map<Integer, String> subClassesOfTransportationMap = new HashMap<Integer, String>();
 		int index = 0;
 		for (OWLClassExpression ce : subClassesOfTransportation) {
 			++index;
 			subClassesOfTransportationMap.put(index,renderer.render(ce));
 		}
+		//
+//		Map<String ,Map<Integer,String>> setOfRanges = new HashMap<String ,Map<Integer,String>>();
+//		for(OWLObjectProperty objProp: objProperties) {
+//			Set<OWLClassExpression> ranges = objProp.getRanges(ontology);
+//			
+//			for (OWLClassExpression ce : ranges) {
+//				Map<Integer, String> rangeMap = new HashMap<Integer, String>();
+//				int index2 = 0;
+//				Set<OWLClassExpression> subExOfobjPropRange = ce.getClassesInSignature().iterator().next().getSubClasses(ontology);
+//				for (OWLClassExpression ce2 : subExOfobjPropRange) {	
+//					++index2;
+//					rangeMap.put(index2,renderer.render(ce2));
+//				}
+//				setOfRanges.put(renderer.render(objProp),rangeMap);
+//			}			
+//		}
+		
 		for (OWLNamedIndividual individual : namedIndividuals) {
 			
 			System.out.println("Which classes does '"+renderer.render(individual)+"' belong to ? Choose one from options below");
@@ -107,10 +124,10 @@ public class App
 						if(dataProp.getDomains(ontology).contains(cOfInd)) {
 							if(dataProp.getSuperProperties(ontology).contains(functionalProp)) {
 								String objPropShortname = renderer.render(dataProp).substring(11);
-								System.out.println("How many '"+objPropShortname+"' does the individual named '"+renderer.render(individual)+"' have ?");
+								System.out.println("How many '"+objPropShortname+"' does the individual named '"+renderer.render(individual)+"' have ? [Type '0' if it has none]");
 								int answer2 = input.nextInt();
 								while(answer < 0) {
-									System.err.println("Please type only positive number and zero !");
+									System.err.println("Please type only positive number and '0'!");
 									answer = input.nextInt();
 								};
 								if(answer > 0) {
@@ -128,8 +145,46 @@ public class App
 								}
 							}
 						}
-					}
+					}					
 				}				
+			}
+			for(OWLObjectProperty objProp: objProperties) {
+				Set<OWLClassExpression> ranges = objProp.getRanges(ontology);
+				
+				for (OWLClassExpression ce : ranges) {
+					Map<Integer, String> rangeMap = new HashMap<Integer, String>();
+					int index2 = 0;
+					Set<OWLClassExpression> subExOfobjPropRange = ce.getClassesInSignature().iterator().next().getSubClasses(ontology);
+					for (OWLClassExpression ce2 : subExOfobjPropRange) {	
+						++index2;
+						rangeMap.put(index2,renderer.render(ce2));
+					}
+					System.out.println("'"+renderer.render(individual)+"' "+renderer.render(objProp)+" something in options below! [Type 0 if none]");
+					for(int currentKey : rangeMap.keySet() ) {
+						System.out.println(currentKey+". "+rangeMap.get(currentKey));
+					}
+					int answer3 = input.nextInt();
+					while(!(answer3 >=0  && answer3 <= index2)) {
+						System.out.println("Please choose from "+index2+" options above only !");
+						answer3 = input.nextInt();
+					}
+					if(answer3 != 0) {
+						System.out.println(individual+ renderer.render(objProp) + "some or only ? [0/1]");
+						System.out.println("0. Some\n1. Only");
+						int answer4 = input.nextInt();
+						while(answer4 != 1 && answer4 != 0) {
+							System.err.println("Please type 0 or 1!");
+							answer4 = input.nextInt();
+						}
+						if(answer4 == 0) {
+//							OWLClassExpression objClassEx = factory.getOWLObjectSomeValuesFrom(factory.getOWLObjectProperty(":"+objProp,pm), factory.getOWLClass(":"+rangeMap.get(answer3),pm));
+						} else if(answer4 == 1) {
+							
+						}
+					} else {
+						break;
+					}
+				}
 			}
 		}
 	}
