@@ -1,4 +1,4 @@
-Ontology Researching Project
+Ontology Research Project
 ============================
 ## Ontology file
 
