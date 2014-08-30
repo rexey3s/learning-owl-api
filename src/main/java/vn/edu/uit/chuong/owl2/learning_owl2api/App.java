@@ -33,7 +33,7 @@ import java.lang.reflect.Array;
  */
 public class App 
 {
-	private static final String FILE_PATH = "/home/r2/transport.owl";
+	private static final String FILE_PATH = "/home/Downloads/transport.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
 	private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer();
 	
