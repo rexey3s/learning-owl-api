@@ -129,14 +129,14 @@ public class App
 								System.out.println("How many '"+objPropShortname+"' does the individual named '"+renderer.render(individual)+"' have ? [Type '0' if it has none]");
 								// Reading input
 								int answer2 = input.nextInt();
-								while(answer < 0) {
+								while(answer2 < 0) {
 									System.err.println("Please type only positive number and '0'!");
-									answer = input.nextInt();
+									answer2 = input.nextInt();
 								};
 								/*
 								 * if the answer is valid, then add new DataProperty for the individual
 								 */
-								if(answer > 0) {
+								if(answer2 > 0) {
 									OWLAxiom propAxiom = factory.getOWLDataPropertyAssertionAxiom(dataProp, individual, answer2);
 									manager.applyChange(new AddAxiom(ontology, propAxiom));
 									manager.saveOntology(ontology);
