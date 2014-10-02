@@ -55,15 +55,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>owlapi-contract</artifactId>
-            <version>3.4.3</version>
-        </dependency>
+      
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.2</version>
+        </dependency>
+        <dependency>
+        	<groupId>net.sourceforge.owlapi</groupId>
+        	<artifactId>owlapi-distribution</artifactId>
+        	<version>4.0.0</version>
         </dependency>
   </dependencies>
   <build>
