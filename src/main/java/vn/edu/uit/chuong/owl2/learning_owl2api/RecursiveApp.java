@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 
 import com.clarkparsia.owlapi.OWL;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+import com.hp.hpl.jena.rdf.arp.FatalParsingErrorException;
 
 public class RecursiveApp {
 	private static final String FILE_PATH = "/home/r2/Downloads/transport.owl";
@@ -81,6 +82,7 @@ public class RecursiveApp {
 					objProperties.add(objProperty);
 				}
 			}
+		
 		}
 		Map<Integer, String> subClassesOfTransportationMap = new HashMap<Integer, String>();
 		int index = 0;
