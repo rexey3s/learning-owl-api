@@ -2,6 +2,7 @@ package vn.edu.uit.chuong.owl2.learning_owl2api;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +42,7 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
@@ -51,6 +53,7 @@ import com.clarkparsia.owlapi.explanation.TransactionAwareSingleExpGen;
 import com.clarkparsia.owlapi.explanation.io.manchester.BlockWriter;
 import com.clarkparsia.owlapi.explanation.io.manchester.ManchesterSyntaxExplanationRenderer;
 import com.clarkparsia.owlapi.explanation.io.manchester.ManchesterSyntaxObjectRenderer;
+import com.clarkparsia.owlapiv3.SWRL;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.*;
@@ -121,84 +124,22 @@ public class App
 //	 			}
 //	 		}
 //	    }
-	    SWRLObjectVisitor visitor = new SWRLObjectVisitor() {
-			
-			@Override
-			public void visit(SWRLDifferentIndividualsAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLSameIndividualAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLLiteralArgument node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLIndividualArgument node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLVariable node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLBuiltInAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLDataPropertyAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLObjectPropertyAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLDataRangeAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLClassAtom node) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void visit(SWRLRule node) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-	    for(SWRLRule swrl: ontology.getAxioms(AxiomType.SWRL_RULE)) {
-	    	Set<SWRLAtom> head = swrl.getHead();
-	    	Set<SWRLAtom> body = swrl.getBody();
+	    for(SWRLRule rule: ontology.getAxioms(AxiomType.SWRL_RULE)) {
+	    	Set<SWRLAtom> head = rule.getHead();
+	    	Set<SWRLAtom> body = rule.getBody();
+	    	
 	    	// Lay phan body de giam vun`g tim kiem
 	    	for(SWRLAtom ruleAtom: body) {
-//	    		Set<OWLClassExpression> owlClsExpSet = ruleAtom.getNestedClassExpressions();
-//	    		for(OWLClassExpression clsExp: owlClsExpSet) {
-//	    			System.out.println(ruleAtom.());
-//	    			
-//	    		}
+	    		try { // Try parse
+//	    		SWRLClassAtom clsAtom = (SWRLClassAtom) ruleAtom;
+//	    		System.out.println(clsAtom);
+	    		SWRLDataPropertyAtom dataPropAtom = (SWRLDataPropertyAtom) ruleAtom;
+	    		System.out.println(dataPropAtom.getAllArguments());
+	    		System.out.println(dataPropAtom);
+	    		}
+	    		catch(Exception e) {
+	    			
+	    		}
 	    	}
 	    	System.out.println("<!------- seperator -------->");
 	    }
