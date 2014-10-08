@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -33,10 +32,9 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
-import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+
+import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
 import com.clarkparsia.owlapi.OWL;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
@@ -59,8 +57,7 @@ public class RecursiveApp {
 		//
 		OWLDataFactory factory = manager.getOWLDataFactory();
 		//
-		OWLDocumentFormat owlFormat = manager.getOntologyFormat(ontology);
-		DefaultPrefixManager pm = new DefaultPrefixManager(null, null,BASE_URL);
+		DefaultPrefixManager pm = new DefaultPrefixManager(BASE_URL);
 		// Set default prefix URI
 		pm.setDefaultPrefix(BASE_URL + "#");
 		OWLClass tranportation = factory.getOWLClass(":Transportation",pm);
@@ -95,7 +92,7 @@ public class RecursiveApp {
 		 */
 		for (OWLNamedIndividual individual : namedIndividuals) {
 			for (OWLDataProperty dataProp : dataProperties) {
-				if(EntitySearcher.getDomains(dataProp, ontology).contains(tranportation)) {
+				if(dataProp.getDomains(ontology).contains(tranportation)) {
 					String shortnameOfProp = renderer.render(dataProp).substring(11);
 					System.out.println("How many '"+shortnameOfProp+"' does the individual named '"+renderer.render(individual)+"' have ? [Type '0' if it has none]");
 					int answer = input.nextInt();
@@ -113,8 +110,8 @@ public class RecursiveApp {
 				}
 			}
 			for(OWLObjectProperty objProp: objProperties) {
-				if(EntitySearcher.getDomains(objProp, ontology).contains(tranportation)) {
-					Collection<OWLClassExpression> ranges = EntitySearcher.getRanges(objProp, ontology);
+				if(objProp.getDomains(ontology).contains(tranportation)) {
+					Collection<OWLClassExpression> ranges = objProp.getRanges(ontology);
 					System.out.println("'"+renderer.render(individual)+"' '"+renderer.render(objProp)+"' something in options below! [Type 0 if none are corrected]");
 					//A new recursive loop here
 
@@ -202,7 +199,7 @@ public class RecursiveApp {
 		if(owlClass.isOWLClass() && !owlClass.isBottomEntity()) {
 			System.out.printf("%1$"+(level*10)+"s\n", renderer.render(owlClass));
 			level++;
-			for(OWLClassExpression ce : EntitySearcher.getSubClasses(owlClass, ont)) {
+			for(OWLClassExpression ce : owlClass.getSubClasses( ont)) {
 				for(OWLClass c : ce.getClassesInSignature()){
 					OWLClassPrint_r(ont,c,level);
 				}
@@ -236,11 +233,11 @@ public class RecursiveApp {
 		
 		for (OWLClass type : types) {
 			
-			if(!visited.contains(type) && type.isOWLClass() && ! EntitySearcher.getSubClasses(type,ontology).isEmpty()) {
+			if(!visited.contains(type) && type.isOWLClass() && ! type.getSubClasses(ontology).isEmpty()) {
 				for (OWLDataProperty dataProp : dataProps) {
 //					dataProp.getRanges(ontology);
 //					Maybe using Data Range in the future version
-					if(EntitySearcher.getDomains(dataProp,ontology).contains(type) ) {
+					if(dataProp.getDomains(ontology).contains(type) ) {
 						String shortnameOfProp = renderer.render(dataProp).substring(11);
 						System.out.println("How many '"+shortnameOfProp+"' does the individual named '"+renderer.render(individual)+"' have ? [Type '0' if it has none]");
 						int answer = input.nextInt();
@@ -256,8 +253,8 @@ public class RecursiveApp {
 					}
 				}
 				for(OWLObjectProperty objProp: objProps) {
-					if(EntitySearcher.getDomains(objProp, ontology).contains(type)) {
-						Collection<OWLClassExpression> ranges = EntitySearcher.getRanges(objProp,ontology);
+					if(objProp.getDomains(ontology).contains(type)) {
+						Collection<OWLClassExpression> ranges = objProp.getRanges(ontology);
 						System.out.println("'"+renderer.render(individual)+"' '"+renderer.render(objProp)+"' something in options below! [Type 0 if none are corrected]");
 						//A new recursive loop here
 						for(OWLClassExpression range : ranges) {
@@ -326,16 +323,16 @@ public class RecursiveApp {
 		public int count = 1;
 		public void print_r(OWLOntology ont, OWLClass owlClass,int level) {
 			if(owlClass.isOWLClass()) {
-				if(!EntitySearcher.getSubClasses(owlClass, ont).isEmpty()) {
+				if(!owlClass.getSubClasses( ont).isEmpty()) {
 					System.out.print(count+". ");
 					for (int i = 0; i < level; i++) {
 						System.out.printf("\t");
 					}
-					System.out.println(renderer.render(owlClass)+"("+EntitySearcher.getIndividuals(owlClass,ont).size()+")");
+					System.out.println(renderer.render(owlClass)+"("+owlClass.getIndividuals(ont).size()+")");
 					level++;
 					map.put(count, owlClass);
 					
-					for(OWLClassExpression ce : EntitySearcher.getSubClasses(owlClass, ont)) {
+					for(OWLClassExpression ce : owlClass.getSubClasses( ont)) {
 						for(OWLClass c : ce.getClassesInSignature()){
 							count++;
 							print_r(ont,c,level);
@@ -346,7 +343,7 @@ public class RecursiveApp {
 					for (int i = 0; i < level; i++) {
 						System.out.printf("\t");
 					}
-					System.out.println(renderer.render(owlClass)+"("+EntitySearcher.getIndividuals(owlClass,ont).size()+")");
+					System.out.println(renderer.render(owlClass)+"("+owlClass.getIndividuals(ont).size()+")");
 					map.put(count, owlClass);
 				}
 			}

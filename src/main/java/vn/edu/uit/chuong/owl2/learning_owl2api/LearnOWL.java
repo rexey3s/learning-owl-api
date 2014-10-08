@@ -10,19 +10,16 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
-import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 
+import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
-import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
-
-import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
+import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
 import java.util.*;
 import java.io.File;
@@ -37,7 +34,8 @@ public class LearnOWL {
 		//
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		//
-		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(FILE_PATH)));
+		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(
+											IRI.create(new File(FILE_PATH)));
 		//
 		OWLReasonerFactory reasonerFactory = PelletReasonerFactory.getInstance();
 		//
@@ -45,13 +43,13 @@ public class LearnOWL {
 		//
 		OWLDataFactory factory = manager.getOWLDataFactory();
 		//
-		DefaultPrefixManager pm = new DefaultPrefixManager(null, null,BASE_URL);
+		DefaultPrefixManager pm = new DefaultPrefixManager(BASE_URL);
 		// Set default prefix URI
 		pm.setDefaultPrefix(BASE_URL + "#");
 		
 		//	Get "Transportation" class
 		OWLClass transportationClass = factory.getOWLClass(":Transportation",pm);
-		Collection<OWLClassExpression> subClasses = EntitySearcher.getSubClasses(transportationClass, ontology);
+		Collection<OWLClassExpression> subClasses = transportationClass.getSubClasses(ontology);
 		for(OWLClassExpression ce : subClasses) {
 			System.out.println(renderer.render(ce));
 		}
@@ -62,11 +60,11 @@ public class LearnOWL {
 		// get a given individual named "LifeBoat"
 		OWLNamedIndividual lifeBoat = factory.getOWLNamedIndividual(":LifeBoat", pm);
 		// find which classes and superClasses the individual lifeBoat belongs 
-		Collection<OWLClassExpression> assertedClasses = EntitySearcher.getTypes(lifeBoat, ontology);
+		Collection<OWLClassExpression> assertedClasses = lifeBoat.getTypes(ontology);
 		for (OWLClass c : reasoner.getTypes(lifeBoat, false).getFlattened()) {
 			boolean asserted = assertedClasses.contains(c);
 			System.out.println((asserted ? "asserted" : "inferred") + " class for LifeBoat: "+renderer.render(c)); 
-			for(OWLClassExpression ce : EntitySearcher.getSuperClasses(c, ontology)) {
+			for(OWLClassExpression ce : c.getSuperClasses( ontology)) {
 				System.out.println("\t\t\t"+ renderer.render(c) +" has superClass -> "+ renderer.render(ce));
 			}				
 		}

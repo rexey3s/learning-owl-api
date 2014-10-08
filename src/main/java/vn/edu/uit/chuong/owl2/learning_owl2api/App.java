@@ -42,10 +42,8 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
-import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
 
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
 import com.clarkparsia.owlapi.explanation.HSTExplanationGenerator;
@@ -56,6 +54,7 @@ import com.clarkparsia.owlapi.explanation.io.manchester.ManchesterSyntaxObjectRe
 import com.clarkparsia.owlapiv3.SWRL;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
+import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.*;
 /**
  * Hello world!
@@ -84,66 +83,25 @@ public class App
 		DefaultExplanationGenerator explanator = new DefaultExplanationGenerator(manager, reasonerFactory, ontology, null);
 		//
 		
-		DefaultPrefixManager pm = new DefaultPrefixManager(null, null,BASE_URL);
+		DefaultPrefixManager pm = new DefaultPrefixManager(BASE_URL);
 		// Set default prefix URI
 		pm.setDefaultPrefix(BASE_URL + "#");
 		
-//		Scanner input = new Scanner(System.in);
-//		OWLClass hovercraft = factory.getOWLClass("HoverCraft",pm);
-//		Set<Set<OWLAxiom>> explanations = explanator.getExplanations(hovercraft);
-		PrintWriter out = new PrintWriter(System.out);
-		ManchesterSyntaxExplanationRenderer mexprenderer = new ManchesterSyntaxExplanationRenderer();
-//		mexprenderer.startRendering(out);
-//		mexprenderer.render(explanations);
-//		mexprenderer.endRendering();
-        OWLClass bottom = manager.getOWLDataFactory().getOWLNothing();
-		Set<OWLClass> unsatisfiables = new HashSet<>();
-	    for (OWLClass clazz : ontology.getClassesInSignature()) {
-	        assert clazz != null;
-	    /* Collect the unsatisfiable classes that aren't bottom. */
-	        if (!reasoner.isSatisfiable(clazz) && !clazz.equals(bottom)) {
-	                unsatisfiables.add(clazz);
-	        }
-	    }
-
-//	    for (OWLClass unsatisfiable: unsatisfiables) {
-//	    	 Set<OWLAxiom> sos = debugger.getSOSForInconsistentClass(unsatisfiable);
-//	    	Set<Set<OWLAxiom>> soss =  debugger.getAllSOSForInconsistentClass(unsatisfiable);
-//	 		mexprenderer.startRendering(out);
-//	 		mexprenderer.render(soss);
-//	 		mexprenderer.endRendering();
-//	 		int setCount = 0;
-//	 		int axiomCount = 0;
-//	 		for(Set<OWLAxiom> AxiomSet : soss) {
-//	 			setCount++;
-//	 			for(OWLAxiom axiom : sos) {
-//	 				axiomCount++;
-//	 				System.out.println(axiom);
-//	 				System.out.println(axiom.getAxiomType());
-//	 				System.out.println(axiom.getClassesInSignature());
-//	 			}
-//	 		}
-//	    }
 	    for(SWRLRule rule: ontology.getAxioms(AxiomType.SWRL_RULE)) {
 	    	Set<SWRLAtom> head = rule.getHead();
 	    	Set<SWRLAtom> body = rule.getBody();
-	    	
-	    	// Lay phan body de giam vun`g tim kiem
 	    	for(SWRLAtom ruleAtom: body) {
-	    		try { // Try parse
+ // Try parse
 //	    		SWRLClassAtom clsAtom = (SWRLClassAtom) ruleAtom;
 //	    		System.out.println(clsAtom);
 	    		SWRLDataPropertyAtom dataPropAtom = (SWRLDataPropertyAtom) ruleAtom;
-	    		System.out.println(dataPropAtom.getAllArguments());
-	    		System.out.println(dataPropAtom);
-	    		}
-	    		catch(Exception e) {
-	    			
-	    		}
+	    		SWRLObjectPropertyAtom propAtom = (SWRLObjectPropertyAtom) ruleAtom;
+	    	
+	    		
 	    	}
 	    	System.out.println("<!------- seperator -------->");
 	    }
-	    	
+	    		
 	}
 	public static void printClassesOfIndividuals(OWLReasoner reasoner,OWLNamedIndividual individual) {
 		OWLObjectRenderer renderer = new DLSyntaxObjectRenderer();
