@@ -1,0 +1,1150 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl">
+    <Prefix name="" IRI="http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="swrl" IRI="http://www.w3.org/2003/11/swrl#"/>
+    <Prefix name="swrlb" IRI="http://www.w3.org/2003/11/swrlb#"/>
+    <Declaration>
+        <Class IRI="#Aircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AttackAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Axile"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Bike"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Boat"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Body"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Bus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Car"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cargo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CargoAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cruiser"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DedicatedCivilCargoAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Diesel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ElectricEngine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Engine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FighterAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FixedWing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FreightTrain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FreightWagon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Helicopter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HighAltitude"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HoverCraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ICE"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InterceptorAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#JointCivilMilitaryCargoAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Land"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LocomotiveUnit"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MediumAltitude"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Motorcycle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MultiRoleAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NarrowBody"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OffRoad"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OnRoad"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OnWaterSuface"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Passenger"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PassengerAircraft"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PassengerTrain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PassengerWagon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#People"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pilot"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Rail"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RailWayTransport"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Rotor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RotorBlade"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ShipAndVessel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sky"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Space"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sprocket"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Steam"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Terrain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Truck"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UnderWater"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Vehicle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VehicleComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Vessel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Wagon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Water"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Wheel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WideBody"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Wing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WingAircraft"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#canBeCarriedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#canCarry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasParts"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isPartOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#moveOn"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#canCarry"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#canCarryCargo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#canCarryPassenger"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasNumberOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasNumberOfRotors"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasNumberOfWheels"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasNumberOfWings"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#A10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Airbus_A380"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#AudiQ7"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#BMWi5"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Container"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#EC145"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#F16"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Freightliner_M2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#HondaCBR250"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#HondaDream"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Martin107"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#QueenMarry2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SingleCylinder"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Titanic"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#YellowBus"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Aircraft"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Vehicle"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <Class IRI="#Sky"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CargoAircraft"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Aircraft"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Cargo"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#FreightTrain"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#RailWayTransport"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#FreightWagon"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#LocomotiveUnit"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#FreightWagon"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Wagon"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Cargo"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#HoverCraft"/>
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI="owl:Thing"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <Class IRI="#Water"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Vehicle"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <ObjectUnionOf>
+                    <Class IRI="#OffRoad"/>
+                    <Class IRI="#OnRoad"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#PassengerAircraft"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Aircraft"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Passenger"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#PassengerTrain"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#RailWayTransport"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#LocomotiveUnit"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#PassengerWagon"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#PassengerWagon"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Wagon"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Passenger"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#RailWayTransport"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Vehicle"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <Class IRI="#Rail"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#ShipAndVessel"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Vehicle"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <Class IRI="#Water"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Terrain"/>
+        <ObjectUnionOf>
+            <Class IRI="#Land"/>
+            <Class IRI="#Sky"/>
+            <Class IRI="#Space"/>
+            <Class IRI="#Water"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Truck"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#OnRoadAndOffRoadVehicle"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Cargo"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Vehicle"/>
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI="owl:Thing"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#moveOn"/>
+                <Class IRI="#Terrain"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VehicleComponent"/>
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI="owl:Thing"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#isPartOf"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Vessel"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#ShipAndVessel"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Class IRI="#Cargo"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Wagon"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#VehicleComponent"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#isPartOf"/>
+                <ObjectUnionOf>
+                    <Class IRI="#FreightTrain"/>
+                    <Class IRI="#PassengerTrain"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#WingAircraft"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Aircraft"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#FixedWing"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Aircraft"/>
+        <Class IRI="#Vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AttackAircraft"/>
+        <Class IRI="#FighterAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Axile"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bike"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Boat"/>
+        <Class IRI="#ShipAndVessel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Boat"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#canCarry"/>
+            <Class IRI="#Passenger"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Body"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bus"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Car"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CargoAircraft"/>
+        <Class IRI="#Aircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cruiser"/>
+        <Class IRI="#ShipAndVessel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cruiser"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#canCarry"/>
+            <Class IRI="#Passenger"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DedicatedCivilCargoAircraft"/>
+        <Class IRI="#CargoAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Diesel"/>
+        <Class IRI="#Engine"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Driver"/>
+        <Class IRI="#People"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ElectricEngine"/>
+        <Class IRI="#Engine"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Engine"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FighterAircraft"/>
+        <Class IRI="#Aircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FixedWing"/>
+        <Class IRI="#Wing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FreightTrain"/>
+        <Class IRI="#RailWayTransport"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FreightWagon"/>
+        <Class IRI="#Wagon"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Helicopter"/>
+        <Class IRI="#Aircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Helicopter"/>
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasParts"/>
+                <Class IRI="#FixedWing"/>
+            </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HighAltitude"/>
+        <Class IRI="#Sky"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HoverCraft"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#moveOn"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#OffRoad"/>
+                <Class IRI="#OnRoad"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ICE"/>
+        <Class IRI="#Engine"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InterceptorAircraft"/>
+        <Class IRI="#FighterAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#JointCivilMilitaryCargoAircraft"/>
+        <Class IRI="#CargoAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Land"/>
+        <Class IRI="#Terrain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LocomotiveUnit"/>
+        <Class IRI="#RailWayTransport"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MediumAltitude"/>
+        <Class IRI="#Sky"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Motorcycle"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MultiRoleAircraft"/>
+        <Class IRI="#FighterAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NarrowBody"/>
+        <Class IRI="#PassengerAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OffRoad"/>
+        <Class IRI="#Land"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OnRoad"/>
+        <Class IRI="#Land"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+        <Class IRI="#Vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OnWaterSuface"/>
+        <Class IRI="#Water"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Passenger"/>
+        <Class IRI="#People"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PassengerAircraft"/>
+        <Class IRI="#Aircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PassengerTrain"/>
+        <Class IRI="#RailWayTransport"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PassengerWagon"/>
+        <Class IRI="#Wagon"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Pilot"/>
+        <Class IRI="#People"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rail"/>
+        <Class IRI="#Land"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RailWayTransport"/>
+        <Class IRI="#Vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rotor"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RotorBlade"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ShipAndVessel"/>
+        <Class IRI="#Vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sky"/>
+        <Class IRI="#Terrain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Space"/>
+        <Class IRI="#Terrain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sprocket"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Steam"/>
+        <Class IRI="#Engine"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Truck"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UnderWater"/>
+        <Class IRI="#Water"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Vessel"/>
+        <Class IRI="#ShipAndVessel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Wagon"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Water"/>
+        <Class IRI="#Terrain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Wheel"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WideBody"/>
+        <Class IRI="#PassengerAircraft"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Wing"/>
+        <Class IRI="#VehicleComponent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WingAircraft"/>
+        <Class IRI="#Aircraft"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#FreightWagon"/>
+        <Class IRI="#PassengerWagon"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Helicopter"/>
+        <Class IRI="#WingAircraft"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Land"/>
+        <Class IRI="#Sky"/>
+        <Class IRI="#Space"/>
+        <Class IRI="#Water"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#OffRoad"/>
+        <Class IRI="#OnRoad"/>
+        <Class IRI="#Rail"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#OnWaterSuface"/>
+        <Class IRI="#UnderWater"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#A10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Airbus_A380"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#AudiQ7"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#BMWi5"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Cargo"/>
+        <NamedIndividual IRI="#Container"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#EC145"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#F16"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+        <NamedIndividual IRI="#Freightliner_M2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#HondaCBR250"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#HondaDream"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Martin107"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#QueenMarry2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ICE"/>
+        <NamedIndividual IRI="#SingleCylinder"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Titanic"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#YellowBus"/>
+    </ClassAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canCarryCargo"/>
+        <NamedIndividual IRI="#YellowBus"/>
+        <Literal datatypeIRI="&xsd;string">yes</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isPartOf"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#canBeCarriedBy"/>
+        <ObjectProperty IRI="#canCarry"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isPartOf"/>
+        <ObjectProperty IRI="#hasParts"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#canCarry"/>
+        <Class IRI="#Vehicle"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasParts"/>
+        <ObjectUnionOf>
+            <Class IRI="#Vehicle"/>
+            <Class IRI="#VehicleComponent"/>
+        </ObjectUnionOf>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isPartOf"/>
+        <ObjectUnionOf>
+            <Class IRI="#Vehicle"/>
+            <Class IRI="#VehicleComponent"/>
+        </ObjectUnionOf>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#moveOn"/>
+        <Class IRI="#Vehicle"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasParts"/>
+        <ObjectUnionOf>
+            <Class IRI="#Vehicle"/>
+            <Class IRI="#VehicleComponent"/>
+        </ObjectUnionOf>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isPartOf"/>
+        <ObjectUnionOf>
+            <Class IRI="#Vehicle"/>
+            <Class IRI="#VehicleComponent"/>
+        </ObjectUnionOf>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#moveOn"/>
+        <Class IRI="#Terrain"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#canCarryCargo"/>
+        <DataProperty IRI="#canCarry"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#canCarryPassenger"/>
+        <DataProperty IRI="#canCarry"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasNumberOfRotors"/>
+        <DataProperty IRI="#hasNumberOf"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+        <DataProperty IRI="#hasNumberOf"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasNumberOfWheels"/>
+        <DataProperty IRI="#hasNumberOf"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasNumberOfWings"/>
+        <DataProperty IRI="#hasNumberOf"/>
+    </SubDataPropertyOf>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#canCarryCargo"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#canCarryPassenger"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasNumberOfRotors"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasNumberOfWheels"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasNumberOfWings"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasNumberOfRotors"/>
+        <Class IRI="#Vehicle"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+        <Class IRI="#Vehicle"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasNumberOfWheels"/>
+        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasNumberOfWings"/>
+        <Class IRI="#Aircraft"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#canCarryCargo"/>
+        <DataOneOf>
+            <Literal datatypeIRI="&rdf;PlainLiteral">no</Literal>
+            <Literal datatypeIRI="&rdf;PlainLiteral">yes</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#canCarryPassenger"/>
+        <DataOneOf>
+            <Literal datatypeIRI="&rdf;PlainLiteral">no</Literal>
+            <Literal datatypeIRI="&rdf;PlainLiteral">yes</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasNumberOfRotors"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasNumberOfWheels"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasNumberOfWings"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Boat"/>
+                <Variable IRI="urn:swrl#v1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#ShipAndVessel"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Variable IRI="urn:swrl#v1"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Cruiser"/>
+                    <Class IRI="#Vessel"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfWheels"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Variable IRI="urn:swrl#w"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="urn:swrl#w"/>
+                <Literal datatypeIRI="&xsd;integer">4</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Bus"/>
+                    <Class IRI="#Car"/>
+                    <Class IRI="#Truck"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfWheels"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Variable IRI="urn:swrl#w"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThan">
+                <Variable IRI="urn:swrl#w"/>
+                <Literal datatypeIRI="&xsd;integer">4</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Bike"/>
+                    <Class IRI="#Motorcycle"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Bus"/>
+                    <Class IRI="#Car"/>
+                    <Class IRI="#Truck"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <DataRangeAtom>
+                <DatatypeRestriction>
+                    <Datatype abbreviatedIRI="xsd:integer"/>
+                    <FacetRestriction facet="&xsd;maxInclusive">
+                        <Literal datatypeIRI="&xsd;integer">7</Literal>
+                    </FacetRestriction>
+                    <FacetRestriction facet="&xsd;minInclusive">
+                        <Literal datatypeIRI="&xsd;integer">4</Literal>
+                    </FacetRestriction>
+                </DatatypeRestriction>
+                <Variable IRI="urn:swrl#s"/>
+            </DataRangeAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfSeats"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Variable IRI="urn:swrl#s"/>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Car"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Bus"/>
+                    <Class IRI="#Car"/>
+                    <Class IRI="#Truck"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#canCarryCargo"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Literal datatypeIRI="&xsd;boolean">true</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Truck"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Body>
+            <ClassAtom>
+                <ObjectUnionOf>
+                    <Class IRI="#Bus"/>
+                    <Class IRI="#Car"/>
+                    <Class IRI="#Truck"/>
+                </ObjectUnionOf>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfSeats"/>
+                <Variable IRI="urn:swrl#v"/>
+                <Variable IRI="urn:swrl#s"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="urn:swrl#s"/>
+                <Literal datatypeIRI="&xsd;integer">20</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Bus"/>
+                <Variable IRI="urn:swrl#v"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
