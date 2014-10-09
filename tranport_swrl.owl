@@ -23,6 +23,9 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Prefix name="swrl" IRI="http://www.w3.org/2003/11/swrl#"/>
+    <Prefix name="swrlb" IRI="http://www.w3.org/2003/11/swrlb#"/>
+    <Import>http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl</Import>
+    <Import>http://www.w3.org/2003/11/swrlb</Import>
     <Declaration>
         <Class IRI="#Aircraft"/>
     </Declaration>
@@ -305,6 +308,19 @@
                 <ObjectProperty IRI="#canCarry"/>
                 <Class IRI="#Cargo"/>
             </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#HoverCraft"/>
+        <ObjectIntersectionOf>
+            <DataHasValue>
+                <DataProperty IRI="#canMoveOnOrIn"/>
+                <Literal datatypeIRI="&rdf;PlainLiteral">OnRoadOrOffRoad</Literal>
+            </DataHasValue>
+            <DataHasValue>
+                <DataProperty IRI="#canMoveOnOrIn"/>
+                <Literal datatypeIRI="&rdf;PlainLiteral">Water</Literal>
+            </DataHasValue>
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
@@ -668,7 +684,7 @@
         <NamedIndividual IRI="#F16"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+        <Class IRI="#Vehicle"/>
         <NamedIndividual IRI="#Freightliner_M2"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -696,18 +712,88 @@
         <NamedIndividual IRI="#Titanic"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#OnRoadAndOffRoadVehicle"/>
+        <Class IRI="#Vehicle"/>
         <NamedIndividual IRI="#YellowBus"/>
     </ClassAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#A10"/>
+        <Literal datatypeIRI="&xsd;string">Sky</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#Airbus_A380"/>
+        <Literal datatypeIRI="&xsd;string">Sky</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#AudiQ7"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#BMWi5"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasNumberOfSeats"/>
+        <NamedIndividual IRI="#BMWi5"/>
+        <Literal datatypeIRI="&xsd;int">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#EC145"/>
+        <Literal datatypeIRI="&xsd;string">Sky</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#F16"/>
+        <Literal datatypeIRI="&xsd;string">Sky</Literal>
+    </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#canCarryCargo"/>
         <NamedIndividual IRI="#Freightliner_M2"/>
         <Literal datatypeIRI="&xsd;boolean">true</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#Freightliner_M2"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#HondaCBR250"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#HondaDream"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#Martin107"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#QueenMarry2"/>
+        <Literal datatypeIRI="&xsd;string">Water</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#Titanic"/>
+        <Literal datatypeIRI="&xsd;string">Water</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <NamedIndividual IRI="#YellowBus"/>
+        <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasNumberOfSeats"/>
         <NamedIndividual IRI="#YellowBus"/>
-        <Literal datatypeIRI="&xsd;unsignedInt">30</Literal>
+        <Literal datatypeIRI="&xsd;int">30</Literal>
     </DataPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#isPartOf"/>
@@ -800,6 +886,10 @@
         <DataProperty IRI="#hasNumberOfWings"/>
     </FunctionalDataProperty>
     <DataPropertyDomain>
+        <DataProperty IRI="#canMoveOnOrIn"/>
+        <Class IRI="#Vehicle"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#hasNumberOfRotors"/>
         <Class IRI="#Vehicle"/>
     </DataPropertyDomain>
@@ -837,12 +927,8 @@
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#hasNumberOfSeats"/>
-        <Datatype abbreviatedIRI="xsd:integer"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
         <DataProperty IRI="#hasNumberOfWheels"/>
-        <Datatype abbreviatedIRI="xsd:integer"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasNumberOfWings"/>
@@ -851,27 +937,241 @@
     <DLSafeRule>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal datatypeIRI="&xsd;string">cho dc han`g la` xe tai</Literal>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoadVehicle which can carry some cargo should be a Truck</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal datatypeIRI="&xsd;string">WhatCanBeATruck</Literal>
+            <Literal datatypeIRI="&xsd;string">Truck</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#OnRoadAndOffRoadVehicle"/>
-                <Variable IRI="#v"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#canCarry"/>
+                <Variable IRI="#x"/>
+                <Variable IRI="#cargo"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Truck"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoad Vehicle which canCarryCargo should be a Truck too</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">WhatCanBeATruck2</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="#x"/>
             </ClassAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#canCarryCargo"/>
-                <Variable IRI="#v"/>
+                <Variable IRI="#x"/>
                 <Literal datatypeIRI="&xsd;boolean">true</Literal>
             </DataPropertyAtom>
         </Body>
         <Head>
             <ClassAtom>
                 <Class IRI="#Truck"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoadVehicle which has number of seats greater than 20 will be a Bus</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">Bus</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfSeats"/>
+                <Variable IRI="#x"/>
+                <Variable IRI="#s"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThan">
+                <Variable IRI="#s"/>
+                <Literal datatypeIRI="&xsd;int">20</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Bus"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoad Vehicle which has number of seats greater than or equal 4 and less than or equal 7 should be a Car</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">Car</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfSeats"/>
+                <Variable IRI="#x"/>
+                <Variable IRI="#s"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="#s"/>
+                <Literal datatypeIRI="&xsd;int">4</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThanOrEqual">
+                <Variable IRI="#s"/>
+                <Literal datatypeIRI="&xsd;int">7</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Car"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string"></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">FindVehicle</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Vehicle"/>
                 <Variable IRI="#v"/>
+            </ClassAtom>
+        </Body>
+        <Head>
+            <BuiltInAtom IRI="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select">
+                <Variable IRI="#v"/>
+            </BuiltInAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string"></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoadVehicle2</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Vehicle"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#canMoveOnOrIn"/>
+                <Variable IRI="#x"/>
+                <Literal datatypeIRI="&xsd;string">OnRoadOrOffRoad</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string">Vehicle which can move on the sky should be an Aircraft</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">Aircraft</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Vehicle"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#canMoveOnOrIn"/>
+                <Variable IRI="#x"/>
+                <Literal datatypeIRI="&xsd;string">Sky</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Aircraft"/>
+                <Variable IRI="#x"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string"></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">FindCar</Literal>
+        </Annotation>
+        <Body>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfSeats"/>
+                <Variable IRI="#x"/>
+                <Variable IRI="#s"/>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <BuiltInAtom IRI="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select">
+                <Variable IRI="#x"/>
+                <Variable IRI="#s"/>
+            </BuiltInAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="&xsd;string">Vehicle that has wheel(s) should be OnRoadAndOffRoadVehicle</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal datatypeIRI="&xsd;string">OnRoadAndOffRoadVehicle</Literal>
+        </Annotation>
+        <Body>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasNumberOfWheels"/>
+                <Variable IRI="#x"/>
+                <Variable IRI="#w"/>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#OnRoadAndOffRoadVehicle"/>
+                <Variable IRI="#x"/>
             </ClassAtom>
         </Head>
     </DLSafeRule>
