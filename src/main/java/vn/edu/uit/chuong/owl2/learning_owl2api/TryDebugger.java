@@ -28,7 +28,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
 public class TryDebugger {
 	private static final String FILE_PATH = 
-			"/home/r2/Downloads/inconsistent_transport.owl";
+			"./inconsistent_transport.owl";
 	private static final String BASE_URL = 
 			"http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
 	public static ManchesterSyntaxExplanationRenderer render = 

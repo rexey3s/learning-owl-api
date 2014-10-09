@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -35,18 +34,12 @@ import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import uk.ac.manchester.cs.bhig.util.Tree;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
-import com.clarkparsia.owlapi.explanation.io.manchester.ManchesterSyntaxExplanationRenderer;
-import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
-public class TrySWRLapi {
-	
+public class FindSomeRulePatterns {
 	private static final String FILE_PATH = "/home/r2/Downloads/tranport_swrl.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
     private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer(); 
@@ -74,46 +67,30 @@ public class TrySWRLapi {
 		DefaultExplanationGenerator explanator = new DefaultExplanationGenerator(manager, reasonerFactory, ont, null);
 		//
 		DefaultPrefixManager pm = new DefaultPrefixManager(BASE_URL);
-		// Set default prefix URI
+		//
 		pm.setDefaultPrefix(BASE_URL + "#");
+		// Set SWRL Core Built-in prefix and SQWRL prefix 
 		pm.setPrefix("swrlb:", "http://www.w3.org/2003/11/swrlb#");
 		pm.setPrefix("sqwrl:", "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#");
-		//
-		OWLNamedIndividual yellowbus = factory.getOWLNamedIndividual(":YellowBus", pm);
-		OWLClass Bus = factory.getOWLClass(":Bus", pm); 
-	    
-        
-		
+		// Convert ontology to SWRL ontology	
         SWRLAPIOWLOntology swrlOntology = SWRLAPIFactory.createOntology(ont, pm);
-        
+        //
 		SWRLRuleEngineFactory ruf = SWRLAPIFactory.createSWRLRuleEngineFactory();
+		// Use Drool as a rule engine
 		ruf.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
 		SWRLParser parser = new SWRLParser(swrlOntology);
 		SQWRLQueryEngine queryEngine =  ruf.createSQWRLQueryEngine(swrlOntology);
-		SQWRLQuery query1 = swrlOntology.createSQWRLQuery("query1", "Vehicle(?v) -> sqwrl:select(?v)");
-		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
-        System.out.println(result);
-		SWRLAPIRule busRule = swrlOntology.createSWRLRule("BusRule",
-				"OnRoadAndOffRoadVehicle(?v) ^ hasNumberOfSeats(?v,?s) ^ swrlb:greaterThan(?s,20) -> Bus(?v)");
-		System.out.println(busRule.getBodyAtoms());
-		System.out.println(busRule);
-//		manager.applyChange(new AddAxiom(ont, busRule.getSimplified()));
-//		manager.saveOntology(ont);
-		reasoner.flush();
-
-		
-		OWLClassAssertionAxiom axiomToExplain = factory.getOWLClassAssertionAxiom(Bus, yellowbus); 
-	    System.out.println("Is YellowBus a Bus ? : " + reasoner.isEntailed(axiomToExplain)); 
-		DefaultExplanationGenerator explanationGenerator = 
-                new DefaultExplanationGenerator( 
-                        manager, reasonerFactory, ont, reasoner, new SilentExplanationProgressMonitor()); 
-		Set<OWLAxiom> explanation = explanationGenerator.getExplanation(axiomToExplain); 
-        ExplanationOrderer deo = new ExplanationOrdererImpl(manager); 
-        ExplanationTree explanationTree = deo.getOrderedExplanation(axiomToExplain, explanation);
-        System.out.println(); 
-        System.out.println("-- explanation why Yellow Bus is a Bus --"); 
-        System.out.println(); 
-        printIndented(explanationTree, "");
+//		SQWRLQuery query1 = swrlOntology.createSQWRLQuery(
+//				"query1",
+//				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
+//		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
+		Set<SWRLAPIRule> rules = swrlOntology.getSWRLAPIRules();		
+//      System.out.println(result);
+        for(SWRLAPIRule rule: rules) {
+        	if(!rule.isSQWRLQuery()) {
+        	System.out.println(rule.getHead());
+        	}
+        }
 	}
 	private static void printIndented(Tree<OWLAxiom> node, String indent) { 
         OWLAxiom axiom = node.getUserObject(); 
