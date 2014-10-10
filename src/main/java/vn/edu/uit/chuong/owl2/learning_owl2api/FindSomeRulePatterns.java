@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
@@ -78,17 +79,20 @@ public class FindSomeRulePatterns {
 		SWRLRuleEngineFactory ruf = SWRLAPIFactory.createSWRLRuleEngineFactory();
 		// Use Drool as a rule engine
 		ruf.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
-		SWRLParser parser = new SWRLParser(swrlOntology);
-		SQWRLQueryEngine queryEngine =  ruf.createSQWRLQueryEngine(swrlOntology);
+//		SWRLParser parser = new SWRLParser(swrlOntology);
+//		SQWRLQueryEngine queryEngine =  ruf.createSQWRLQueryEngine(swrlOntology);
 //		SQWRLQuery query1 = swrlOntology.createSQWRLQuery(
 //				"query1",
 //				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
 //		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
 		Set<SWRLAPIRule> rules = swrlOntology.getSWRLAPIRules();		
 //      System.out.println(result);
-        for(SWRLAPIRule rule: rules) {
+        
+		for(SWRLAPIRule rule: rules) {
         	if(!rule.isSQWRLQuery()) {
-        	System.out.println(rule.getHead());
+        		System.out.println(rule.getClassAtomPredicates());
+        		SWRLRule r = (SWRLRule)rule;
+        		r.getNNF();
         	}
         }
 	}
@@ -100,5 +104,5 @@ public class FindSomeRulePatterns {
                 printIndented(child, indent + "    "); 
             } 
         } 
-    } 
+    }
 }
