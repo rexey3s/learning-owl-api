@@ -41,7 +41,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.hp.hpl.jena.rdf.arp.FatalParsingErrorException;
 
 public class RecursiveApp {
-	private static final String FILE_PATH = "/home/r2/Downloads/transport.owl";
+	private static final String FILE_PATH = "./transport.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
 	private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer();
 	protected static Scanner input = new Scanner(System.in);
