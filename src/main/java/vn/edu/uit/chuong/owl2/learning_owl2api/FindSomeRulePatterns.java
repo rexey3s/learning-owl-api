@@ -2,16 +2,10 @@ package vn.edu.uit.chuong.owl2.learning_owl2api;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.mindswap.pellet.exceptions.InconsistentOntologyException;
-import org.mindswap.pellet.jena.vocabulary.SWRL;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
@@ -22,22 +16,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
@@ -91,6 +70,7 @@ import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
@@ -114,6 +94,7 @@ import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
+import vn.edu.uit.swrlapi.visitorimpl.ComparisonBuiltInCollector;
 
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
@@ -167,14 +148,12 @@ public class FindSomeRulePatterns {
 		//		OWLClass vehicle = df.getOWLClass(":Vehicle",pm);
 		//		Set<OWLNamedIndividual> vehicleInstances = reasoner
 		//				.getInstances(vehicle,true).getFlattened();
-		BuiltInAtomCollector visitor = new BuiltInAtomCollector();
+		ComparisonBuiltInCollector visitor = new ComparisonBuiltInCollector(Collections.singleton(ont));
+		
 		for(SWRLAPIRule rule: rules) {
-			if(!rule.isSQWRLQuery()) {			
-				for(SWRLAtom atom : rule.getBodyAtoms()) {
-					atom.accept(visitor);
-//					System.out.println(atom.getClass());
-				}
-				System.out.println();
+			if(!rule.isSQWRLQuery()) {	
+				rule.accept(visitor);
+				
 			}
 		}
 	}
@@ -188,100 +167,6 @@ public class FindSomeRulePatterns {
 			} 
 		} 
 	}
-	private static class BuiltInAtomCollector implements SWRLObjectVisitor {
-
-		public BuiltInAtomCollector() {
-			// TODO Auto-generated constructor stub
-		}
-		
-		@Override
-		public void visit(SWRLClassAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLObjectPropertyAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLDataPropertyAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLSameIndividualAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLDifferentIndividualsAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLDataRangeAtom atom) {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-		@Override
-		public void visit(SWRLRule node) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLBuiltInAtom node) {
-			// TODO Auto-generated method stub
-			System.out.println(node);
-		}
-
-		@Override
-		public void visit(SWRLVariable node) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLIndividualArgument node) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void visit(SWRLLiteralArgument node) {
-			// TODO Auto-generated method stub
-			System.out.println(node);
-		}
-	}
-	private static interface RangeBuiltIn extends SWRLAPIBuiltInAtom {
-	}
-	private static class BuiltInAtomRangeCollector implements 
-		SWRLAPIBuiltInAtomVisitorEx<SWRLAPIBuiltInAtom> {
-		
-		private Set<SWRLAPIBuiltInAtom> processedBuiltIns;
-		
-		public BuiltInAtomRangeCollector() {
-			processedBuiltIns = new HashSet<SWRLAPIBuiltInAtom>();
-			
-		}
-		@Override
-		public SWRLAPIBuiltInAtom visit(@Nonnull SWRLAPIBuiltInAtom atom) {
-			String prefix = atom.getBuiltInPrefixedName().toString();
-			return null;
-		}
-
-		
-	}
-
 }
-
 
 
