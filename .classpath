@@ -22,15 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/r2/.m2/repository/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="com.google.code.findbugs"/>
-			<attribute name="maven.artifactId" value="jsr305"/>
-			<attribute name="maven.version" value="2.0.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" path="/swrlapi"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

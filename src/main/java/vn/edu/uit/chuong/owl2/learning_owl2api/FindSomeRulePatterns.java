@@ -104,7 +104,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.clarkparsia.pellet.rules.model.ClassAtom;
 
 public class FindSomeRulePatterns {
-	private static final String FILE_PATH = "/home/r2/Downloads/tranport_swrl.owl";
+	private static final String FILE_PATH = "./tranport_swrl.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
 	private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer(); 
 
@@ -148,7 +148,7 @@ public class FindSomeRulePatterns {
 		//				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
 		//		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
 		Set<SWRLAPIRule> rules = ruleont.getSWRLAPIRules();
-				OWLClass vehicle = df.getOWLClass(":Vehicle",pm);
+				OWLClass vehicle = df.getOWLClass(":Aircraft",pm);
 		//		Set<OWLNamedIndividual> vehicleInstances = reasoner
 		//				.getInstances(vehicle,true).getFlattened();
 		PossibleAnswersCollector visitor = new PossibleAnswersCollector(vehicle);

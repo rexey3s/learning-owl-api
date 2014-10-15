@@ -17,9 +17,11 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
@@ -33,12 +35,19 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  */
 
 public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
-	private final Map<OWLDataProperty,Set<SWRLLiteralArgument>> data;
+	
+	private final Set<SWRLRule> processedRules;
+	
+	private final Map<OWLDataProperty,Set<SWRLLiteralArgument>> dpArgs;
 	private final Set<SWRLDataPropertyAtom> processedProps;
 	private final Set<SWRLLiteralArgument> processedLiteralArgs;
+	
+	private final Map<OWLDataProperty,Set<SWRLDArgument>> dpDArgs;
 	private final Set<SWRLVariable> processedVars;
 	/* Class to find suggestion */
 	private final OWLClass  cls;
+	/* IArgument */
+	private SWRLIArgument individual;
 	
 	private static final Set<SWRLBuiltInsVocabulary> compareVocab = 
 			new HashSet<SWRLBuiltInsVocabulary>() { 
@@ -54,14 +63,20 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 	};
 	
 	public PossibleAnswersCollector(OWLClass cls) {
-		data = new HashMap<OWLDataProperty,Set<SWRLLiteralArgument>>();
+		
+		processedRules = new HashSet<SWRLRule>();
+		dpArgs = new HashMap<OWLDataProperty,Set<SWRLLiteralArgument>>();
 		processedProps = new HashSet<SWRLDataPropertyAtom>();
 		processedLiteralArgs = new HashSet<SWRLLiteralArgument>();
+		
+		dpDArgs = new HashMap<OWLDataProperty,Set<SWRLDArgument>>();
 		processedVars = new HashSet<SWRLVariable>();
+		
+		
 		this.cls = cls;
 	}
 	public Map<OWLDataProperty,Set<SWRLLiteralArgument>> getPossibleAnswers() {
-		return data;
+		return dpArgs;
 	}
 	/**
 	 * Let {@link org.semanticweb.owlapi.model.SWRLAtom} accepts 
@@ -69,7 +84,16 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 	 */
 	@Override
 	public void visit(SWRLRule node) {
-		if(node.getClassesInSignature().contains(this.cls)) {
+		Set<SWRLAtom> atoms = node.getBody();
+		boolean hasFound = false;
+		for(SWRLAtom atom : atoms) {
+			if(atom.getClassesInSignature().contains(this.cls)) {
+				hasFound = true;
+				break;
+			}
+		}
+		if(hasFound) {
+
 			for(SWRLAtom atom : node.getBody()) {
 				atom.accept(this);
 			}
@@ -83,7 +107,9 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 	 */
 	@Override
 	public void visit(SWRLClassAtom node) {
-		// TODO Auto-generated method stub
+		if(node.getClassesInSignature().contains(this.cls)) {
+			this.individual = node.getArgument();
+		}
 	}
 	/**
 	 * @param SWRLDataRangeAtom 
@@ -110,18 +136,14 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 		if(!processedProps.contains(node)) {
 			System.out.println("The first argument is "+node.getFirstArgument()+
 							" ,the second argument is "+node.getSecondArgument());
-			
-//			for(SWRLArgument arg: node.getAllArguments()) {
-//				if(! (arg instanceof SWRLIndividualArgument)) {
-//					arg.accept(this);
-//				}
-//			}
 			if(node.getFirstArgument() instanceof SWRLVariable) {
+				
 				if(node.getSecondArgument() instanceof SWRLVariable) {
 					node.getSecondArgument().accept(this);
+					
 				} else if(node.getSecondArgument() instanceof SWRLLiteralArgument) {
 					node.getSecondArgument().accept(this);
-					data.put(node.getDataPropertiesInSignature().iterator().next(),
+					dpArgs.put(node.getDataPropertiesInSignature().iterator().next(),
 							processedLiteralArgs);
 				}
 			}
@@ -135,6 +157,7 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 				SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
 		if(node.isCoreBuiltIn() && compareVocab.contains(builtInVoc)) {
 			System.out.println("BuiltIn here!");
+			
 		}
 		
 	}
@@ -155,7 +178,6 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 		System.out.println("Literal Argument here");
 		if(!processedLiteralArgs.contains(node)) {
 			processedLiteralArgs.add(node);
-			
 		}
 	}
 
