@@ -2,7 +2,9 @@ package vn.edu.uit.chuong.owl2.learning_owl2api;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.mindswap.pellet.exceptions.InconsistentOntologyException;
@@ -16,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
@@ -94,7 +97,7 @@ import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
-import vn.edu.uit.swrlapi.visitorimpl.ComparisonBuiltInCollector;
+import vn.edu.uit.swrlapi.visitorimpl.PossibleAnswersCollector;
 
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
@@ -145,17 +148,16 @@ public class FindSomeRulePatterns {
 		//				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
 		//		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
 		Set<SWRLAPIRule> rules = ruleont.getSWRLAPIRules();
-		//		OWLClass vehicle = df.getOWLClass(":Vehicle",pm);
+				OWLClass vehicle = df.getOWLClass(":Vehicle",pm);
 		//		Set<OWLNamedIndividual> vehicleInstances = reasoner
 		//				.getInstances(vehicle,true).getFlattened();
-		ComparisonBuiltInCollector visitor = new ComparisonBuiltInCollector(Collections.singleton(ont));
-		
+		PossibleAnswersCollector visitor = new PossibleAnswersCollector(vehicle);
 		for(SWRLAPIRule rule: rules) {
 			if(!rule.isSQWRLQuery()) {	
-				rule.accept(visitor);
-				
+				rule.accept(visitor);	
 			}
 		}
+		System.out.println(visitor.getPossibleAnswers());
 	}
 
 	private static void printIndented(Tree<OWLAxiom> node, String indent) { 
@@ -167,6 +169,6 @@ public class FindSomeRulePatterns {
 			} 
 		} 
 	}
+	
 }
-
 

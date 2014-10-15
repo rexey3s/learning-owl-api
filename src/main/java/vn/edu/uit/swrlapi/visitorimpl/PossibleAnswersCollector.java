@@ -5,17 +5,18 @@ package vn.edu.uit.swrlapi.visitorimpl;
  */
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.drools.command.GetDefaultValue;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
@@ -30,11 +31,14 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 /**
  * Collect all comparison SWRL Built-in and associated Classes
  */
-public class ComparisonBuiltInCollector implements SWRLObjectVisitor 	{
-	
-//	private final Map<OWLDataProperty,Map<Integer,Integer>> dataRangeInRules;
-	private final Map<SWRLVariable, Set<SWRLLiteralArgument>> variablesMap;
-	private final Set<OWLOntology> onts;
+
+public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
+	private final Map<OWLDataProperty,Set<SWRLLiteralArgument>> data;
+	private final Set<SWRLDataPropertyAtom> processedProps;
+	private final Set<SWRLLiteralArgument> processedLiteralArgs;
+	private final Set<SWRLVariable> processedVars;
+	/* Class to find suggestion */
+	private final OWLClass  cls;
 	
 	private static final Set<SWRLBuiltInsVocabulary> compareVocab = 
 			new HashSet<SWRLBuiltInsVocabulary>() { 
@@ -49,54 +53,80 @@ public class ComparisonBuiltInCollector implements SWRLObjectVisitor 	{
 		}
 	};
 	
-	public ComparisonBuiltInCollector(Set<OWLOntology> onts) {
-//		dataRangeInRules = new HashMap<OWLDataProperty,Map<Integer,Integer>>();
-		variablesMap = new HashMap<SWRLVariable, Set<SWRLLiteralArgument>>();
-		this.onts = onts;
+	public PossibleAnswersCollector(OWLClass cls) {
+		data = new HashMap<OWLDataProperty,Set<SWRLLiteralArgument>>();
+		processedProps = new HashSet<SWRLDataPropertyAtom>();
+		processedLiteralArgs = new HashSet<SWRLLiteralArgument>();
+		processedVars = new HashSet<SWRLVariable>();
+		this.cls = cls;
+	}
+	public Map<OWLDataProperty,Set<SWRLLiteralArgument>> getPossibleAnswers() {
+		return data;
 	}
 	/**
 	 * Let {@link org.semanticweb.owlapi.model.SWRLAtom} accepts 
-	 * 	   {@link vn.edu.uit.swrlapi.visitorimpl.ComparisonBuiltInCollector}
+	 * 	   {@link vn.edu.uit.swrlapi.visitorimpl.PossibleAnswersCollector}
 	 */
 	@Override
 	public void visit(SWRLRule node) {
-		for(SWRLAtom atom : node.getBody()) {
-			atom.accept(this);
+		if(node.getClassesInSignature().contains(this.cls)) {
+			for(SWRLAtom atom : node.getBody()) {
+				atom.accept(this);
+			}
+		} else {
+			System.out.println("Class " + this.cls + " not found in Rule body");
 		}
 	}
-
+	/**
+	 * @param SWRLClassAtom
+	 * 		  visit ClassAtoms in rule body
+	 */
 	@Override
 	public void visit(SWRLClassAtom node) {
 		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * @param SWRLDataRangeAtom 
+	 * 		  visit DataRangeAtom in rule body
+	 */
 	@Override
 	public void visit(SWRLDataRangeAtom node) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * @param SWLObjectPropertyAtom
+	 * 		  visit SWLObjectPropertyAtom in rule body
+	 */
 	@Override
 	public void visit(SWRLObjectPropertyAtom node) {
-		// TODO Auto-generated method stub
-		
-	}
+		for(SWRLArgument arg : node.getAllArguments()) {
+			arg.accept(this);
+		}
+ 	}
 
 	@Override
 	public void visit(SWRLDataPropertyAtom node) {
-		// TODO Auto-generated method stub
-		System.out.println("The first argument is "+node.getFirstArgument()+
-						" ,the second argument is "+node.getSecondArgument());
-		if(node.getSecondArgument() instanceof SWRLVariable) {
-			System.out.println("Hey there are variables here");
-		} else if(node.getSecondArgument() instanceof SWRLLiteralArgument) {
-			System.out.println("Hey there literal argument here");
-			SWRLLiteralArgument lit = (SWRLLiteralArgument)node.getSecondArgument();
-			System.out.println("And the literal is "+lit.getLiteral());
+		if(!processedProps.contains(node)) {
+			System.out.println("The first argument is "+node.getFirstArgument()+
+							" ,the second argument is "+node.getSecondArgument());
 			
+//			for(SWRLArgument arg: node.getAllArguments()) {
+//				if(! (arg instanceof SWRLIndividualArgument)) {
+//					arg.accept(this);
+//				}
+//			}
+			if(node.getFirstArgument() instanceof SWRLVariable) {
+				if(node.getSecondArgument() instanceof SWRLVariable) {
+					node.getSecondArgument().accept(this);
+				} else if(node.getSecondArgument() instanceof SWRLLiteralArgument) {
+					node.getSecondArgument().accept(this);
+					data.put(node.getDataPropertiesInSignature().iterator().next(),
+							processedLiteralArgs);
+				}
+			}
+			processedProps.add(node);
 		}
-		
 	}
 
 	@Override
@@ -104,26 +134,29 @@ public class ComparisonBuiltInCollector implements SWRLObjectVisitor 	{
 		SWRLBuiltInsVocabulary builtInVoc = 
 				SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
 		if(node.isCoreBuiltIn() && compareVocab.contains(builtInVoc)) {
-			System.out.println("Yo!");
+			System.out.println("BuiltIn here!");
 		}
+		
 	}
 
 	@Override
 	public void visit(SWRLVariable node) {
-		// TODO Auto-generated method stub
 		System.out.println("SWRLVariable here");
+		
 	}
 
 	@Override
 	public void visit(SWRLIndividualArgument node) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void visit(SWRLLiteralArgument node) {
-		// TODO Auto-generated method stub
 		System.out.println("Literal Argument here");
+		if(!processedLiteralArgs.contains(node)) {
+			processedLiteralArgs.add(node);
+			
+		}
 	}
 
 	@Override
