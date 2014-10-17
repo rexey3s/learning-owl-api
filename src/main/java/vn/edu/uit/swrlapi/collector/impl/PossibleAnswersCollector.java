@@ -1,4 +1,4 @@
-package vn.edu.uit.swrlapi.visitorimpl;
+package vn.edu.uit.swrlapi.collector.impl;
 /**
  * @author Chuong Dang, University of Information and Technology, 
  * 		   Faculty of Computer Network and Telecommunication, Date: Oct 14, 2014
@@ -30,14 +30,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
 /**
  * Collect all comparison SWRL Built-in and associated Classes
  */
-
 public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 	
 	private final Set<SWRLRule> processedRules;
-	
 	private final Map<OWLDataProperty,Set<SWRLLiteralArgument>> dpArgs;
 	private final Set<SWRLDataPropertyAtom> processedProps;
 	private final Set<SWRLLiteralArgument> processedLiteralArgs;
@@ -80,7 +79,7 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 	}
 	/**
 	 * Let {@link org.semanticweb.owlapi.model.SWRLAtom} accepts 
-	 * 	   {@link vn.edu.uit.swrlapi.visitorimpl.PossibleAnswersCollector}
+	 * 	   {@link vn.edu.uit.swrlapi.collector.impl.PossibleAnswersCollector}
 	 */
 	@Override
 	public void visit(SWRLRule node) {

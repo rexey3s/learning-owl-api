@@ -97,7 +97,8 @@ import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
-import vn.edu.uit.swrlapi.visitorimpl.PossibleAnswersCollector;
+import vn.edu.uit.swrlapi.collector.impl.DataPropertyAtomCollector;
+import vn.edu.uit.swrlapi.collector.impl.PossibleAnswersCollector;
 
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
@@ -148,16 +149,20 @@ public class FindSomeRulePatterns {
 		//				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
 		//		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
 		Set<SWRLAPIRule> rules = ruleont.getSWRLAPIRules();
-				OWLClass vehicle = df.getOWLClass(":Vehicle",pm);
+				OWLClass vehicle = df.getOWLClass(":OnRoadAndOffRoadVehicle",pm);
 		//		Set<OWLNamedIndividual> vehicleInstances = reasoner
 		//				.getInstances(vehicle,true).getFlattened();
-		PossibleAnswersCollector visitor = new PossibleAnswersCollector(vehicle);
+//		PossibleAnswersCollector visitor = new PossibleAnswersCollector(vehicle);
+		DataPropertyAtomCollector visitor = new DataPropertyAtomCollector(vehicle);
+				
 		for(SWRLAPIRule rule: rules) {
 			if(!rule.isSQWRLQuery()) {	
 				rule.accept(visitor);	
 			}
 		}
-		System.out.println(visitor.getPossibleAnswers());
+		System.out.println(visitor.getRecommendedAnswers());
+		System.out.println(visitor.getDataPropertyVariableMapper());
+		System.out.println(visitor.getVariableLiteralMapper());
 	}
 
 	private static void printIndented(Tree<OWLAxiom> node, String indent) { 
