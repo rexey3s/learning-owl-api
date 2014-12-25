@@ -1,47 +1,18 @@
 package vn.edu.uit.swrlapi.collector.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.MultiMap;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitorEx;
 import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.core.SWRLAPIBuiltInAtom;
-import org.swrlapi.core.visitors.SWRLAPIBuiltInAtomVisitorEx;
+
+import java.util.*;
 
 
 public class DataPropertyAtomCollector implements SWRLObjectVisitor {
-		
-	private final OWLClass namedClass;
-	private static final Set<SWRLBuiltInsVocabulary> allowedSWRLVocab = 
-			new HashSet<SWRLBuiltInsVocabulary>() { 
+
+	private static final Set<SWRLBuiltInsVocabulary> allowedSWRLVocab =
+			new HashSet<SWRLBuiltInsVocabulary>() {
 		private static final long serialVersionUID = 1L;
 		{
 			add(SWRLBuiltInsVocabulary.GREATER_THAN);
@@ -52,27 +23,24 @@ public class DataPropertyAtomCollector implements SWRLObjectVisitor {
 			add(SWRLBuiltInsVocabulary.LESS_THAN_OR_EQUAL);
 		}
 	};
+	private final OWLClass namedClass;
 	/* mapping DataProperty and their Arguments */
-	
-	
-	
 	private final Map<SWRLVariable,OWLDataProperty> currentMapper;
+	/* recommended answers */
+	private final HashMap<OWLDataProperty, Object> recommendedAnswers;
 	/* May use Multi Map for this one */
 	private Map<SWRLBuiltInsVocabulary, OWLLiteral> currentRange;
-	/* recommended answers */
-	private final HashMap<OWLDataProperty,Object> recommendedAnswers;
-	
-	private SWRLVariable currentVar; 
+	private SWRLVariable currentVar;
 	private OWLDataProperty currentDprop;
 	public DataPropertyAtomCollector(OWLClass cls) 
 	{
 		namedClass = cls;
 		currentMapper =
-				new HashMap<SWRLVariable, OWLDataProperty>();
+				new HashMap<>();
 		currentRange =
-				new HashMap<SWRLBuiltInsVocabulary, OWLLiteral>();
-		recommendedAnswers = 
-				new HashMap<OWLDataProperty,Object>();
+				new HashMap<>();
+		recommendedAnswers =
+				new HashMap<>();
 	}
 	public Map<OWLDataProperty,Object> getRecommendedAnswers() 
 	{
@@ -101,7 +69,8 @@ public class DataPropertyAtomCollector implements SWRLObjectVisitor {
 	}
 	@Override
 	public void visit(SWRLClassAtom node) {
-		// TODO Auto-generated method stub
+
+
 	}
 	@Override
 	public void visit(SWRLDataRangeAtom node) {

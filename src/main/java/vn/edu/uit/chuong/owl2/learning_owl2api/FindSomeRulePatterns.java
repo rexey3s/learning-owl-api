@@ -1,113 +1,33 @@
 package vn.edu.uit.chuong.owl2.learning_owl2api;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import org.mindswap.pellet.exceptions.InconsistentOntologyException;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
-import org.semanticweb.owlapi.debugging.OWLDebugger;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLPredicate;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.core.SWRLRuleEngineFactory;
-import org.swrlapi.core.impl.DefaultSWRLAPIOWLDataFactory;
-import org.swrlapi.core.visitors.SWRLAPIBuiltInAtomVisitorEx;
-import org.swrlapi.core.visitors.SWRLAPIEntityVisitorEx;
-import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
-import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitorEx;
-import org.swrlapi.core.visitors.SWRLAtomVisitor;
-import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
-import org.swrlapi.parser.SWRLParser;
-import org.swrlapi.sqwrl.SQWRLQuery;
-import org.swrlapi.sqwrl.SQWRLQueryEngine;
-import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
-
-import uk.ac.manchester.cs.bhig.util.Tree;
-import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
+import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 import vn.edu.uit.swrlapi.collector.impl.DataPropertyAtomCollector;
-import vn.edu.uit.swrlapi.collector.impl.PossibleAnswersCollector;
+import vn.edu.uit.swrlapi.collector.impl.PropertyAtomSearcher;
 
-import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
-import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
-import com.clarkparsia.pellet.rules.model.ClassAtom;
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
 
 public class FindSomeRulePatterns {
-	private static final String FILE_PATH = "./tranport_swrl.owl";
+	private static final String FILE_PATH = "/home/r1/workspace/git/transport.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
-	private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer(); 
+	private static OWLObjectRenderer renderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
 
 	public static void main(String[] args)  throws 
 	InconsistentOntologyException, UnsupportedOperationException, 
@@ -141,7 +61,7 @@ public class FindSomeRulePatterns {
 		//
 		SWRLRuleEngineFactory ruf = SWRLAPIFactory.createSWRLRuleEngineFactory();
 		// Use Drool as a rule engine
-		ruf.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
+//		ruf.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
 		//		SWRLParser parser = new SWRLParser(ruleont);
 		//		SQWRLQueryEngine queryEngine =  ruf.createSQWRLQueryEngine(ruleont);
 		//		SQWRLQuery query1 = swrlOntology.createSQWRLQuery(
@@ -149,23 +69,22 @@ public class FindSomeRulePatterns {
 		//				"canCarryNumberOfPassenger(?x,?y) -> sqwrl:select(?x,?y)");
 		//		SQWRLResult result = queryEngine.runSQWRLQuery("query1");
 		Set<SWRLAPIRule> rules = ruleont.getSWRLAPIRules();
-				OWLClass vehicle = df.getOWLClass(":OnRoadAndOffRoadVehicle",pm);
+		OWLClass vehicle = df.getOWLClass(":Aircraft", pm);
 		//		Set<OWLNamedIndividual> vehicleInstances = reasoner
 		//				.getInstances(vehicle,true).getFlattened();
 //		PossibleAnswersCollector visitor = new PossibleAnswersCollector(vehicle);
 		DataPropertyAtomCollector visitor = new DataPropertyAtomCollector(vehicle);
-				
 		for(SWRLAPIRule rule: rules) {
 			if(!rule.isSQWRLQuery()) {	
 				rule.accept(visitor);	
 			}
 		}
 		System.out.println(visitor.getRecommendedAnswers());
-		System.out.println(visitor.getDataPropertyVariableMapper());
-		System.out.println(visitor.getVariableLiteralMapper());
+		PropertyAtomSearcher searcher = new PropertyAtomSearcher(ruleont);
+		System.out.println(searcher.getObjectPropertySuggestionByClass(vehicle));
 	}
 
-	private static void printIndented(Tree<OWLAxiom> node, String indent) { 
+	private static void printIndented(Tree<OWLAxiom> node, String indent) {
 		OWLAxiom axiom = node.getUserObject(); 
 		System.out.println(indent + renderer.render(axiom)); 
 		if (!node.isLeaf()) { 

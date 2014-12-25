@@ -1,23 +1,15 @@
 package vn.edu.uit.chuong.owl2.learning_owl2api;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Set;
-
+import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
+import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
+import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import org.mindswap.pellet.exceptions.InconsistentOntologyException;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
@@ -26,30 +18,26 @@ import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.core.SWRLRuleEngineFactory;
-import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.parser.SWRLParser;
 import org.swrlapi.sqwrl.SQWRLQuery;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
-
-import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
+import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 
-import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
-import com.clarkparsia.owlapi.explanation.io.manchester.ManchesterSyntaxExplanationRenderer;
-import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
-import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
 
 public class TrySWRLapi {
 	
 	private static final String FILE_PATH = "/home/r2/Downloads/tranport_swrl.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
-    private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer(); 
+	private static OWLObjectRenderer renderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
 
 	public static void main(String[] args)  throws 
 		InconsistentOntologyException, 
@@ -87,7 +75,6 @@ public class TrySWRLapi {
         SWRLAPIOWLOntology swrlOntology = SWRLAPIFactory.createOntology(ont, pm);
         
 		SWRLRuleEngineFactory ruf = SWRLAPIFactory.createSWRLRuleEngineFactory();
-		ruf.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
 		SWRLParser parser = new SWRLParser(swrlOntology);
 		SQWRLQueryEngine queryEngine =  ruf.createSQWRLQueryEngine(swrlOntology);
 		SQWRLQuery query1 = swrlOntology.createSQWRLQuery("query1", "Vehicle(?v) -> sqwrl:select(?v)");
@@ -115,8 +102,9 @@ public class TrySWRLapi {
         System.out.println(); 
         printIndented(explanationTree, "");
 	}
-	private static void printIndented(Tree<OWLAxiom> node, String indent) { 
-        OWLAxiom axiom = node.getUserObject(); 
+
+	private static void printIndented(Tree<OWLAxiom> node, String indent) {
+		OWLAxiom axiom = node.getUserObject();
         System.out.println(indent + renderer.render(axiom)); 
         if (!node.isLeaf()) { 
             for (Tree<OWLAxiom> child : node.getChildren()) { 

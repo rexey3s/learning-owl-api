@@ -3,32 +3,28 @@ package vn.edu.uit.chuong.owl2.learning_owl2api;
 import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
 import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
+import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 
-import java.util.*;
 import java.io.File;
-import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.Set;
 
 public class LearnOWL {
 	private static final String FILE_PATH = "/home/r2/Downloads/transport.owl";
 	private static final String BASE_URL = "http://www.semanticweb.org/pseudo/ontologies/2014/7/transport.owl";
-	private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer();
+	private static OWLObjectRenderer renderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
 	
 	public static void main(String[] args)  throws OWLOntologyCreationException, OWLOntologyStorageException {
 		//
@@ -49,7 +45,7 @@ public class LearnOWL {
 		
 		//	Get "Transportation" class
 		OWLClass transportationClass = factory.getOWLClass(":Transportation",pm);
-		Collection<OWLClassExpression> subClasses = transportationClass.getSubClasses(ontology);
+		Collection<OWLClassExpression> subClasses = EntitySearcher.getSubClasses(transportationClass, ontology);
 		for(OWLClassExpression ce : subClasses) {
 			System.out.println(renderer.render(ce));
 		}
@@ -60,11 +56,11 @@ public class LearnOWL {
 		// get a given individual named "LifeBoat"
 		OWLNamedIndividual lifeBoat = factory.getOWLNamedIndividual(":LifeBoat", pm);
 		// find which classes and superClasses the individual lifeBoat belongs 
-		Collection<OWLClassExpression> assertedClasses = lifeBoat.getTypes(ontology);
+		Collection<OWLClassExpression> assertedClasses = EntitySearcher.getTypes(lifeBoat, ontology);
 		for (OWLClass c : reasoner.getTypes(lifeBoat, false).getFlattened()) {
 			boolean asserted = assertedClasses.contains(c);
-			System.out.println((asserted ? "asserted" : "inferred") + " class for LifeBoat: "+renderer.render(c)); 
-			for(OWLClassExpression ce : c.getSuperClasses( ontology)) {
+			System.out.println((asserted ? "asserted" : "inferred") + " class for LifeBoat: "+renderer.render(c));
+			for (OWLClassExpression ce : EntitySearcher.getSubClasses(c, ontology)) {
 				System.out.println("\t\t\t"+ renderer.render(c) +" has superClass -> "+ renderer.render(ce));
 			}				
 		}
@@ -104,9 +100,9 @@ public class LearnOWL {
 		System.out.println("EOF");
 		
 	}
-	 public static void listSWRLRules(OWLOntology ontology, DefaultPrefixManager pm) { 
-	        OWLObjectRenderer renderer = new DLSyntaxObjectRenderer(); 
-	        for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) { 
+	 public static void listSWRLRules(OWLOntology ontology, DefaultPrefixManager pm) {
+		 OWLObjectRenderer renderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
+		 for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
 	        	String temp = renderer.render(rule);
 	        	System.out.println(temp);
 //	        	System.out.println(rule.getClassAtomPredicates());

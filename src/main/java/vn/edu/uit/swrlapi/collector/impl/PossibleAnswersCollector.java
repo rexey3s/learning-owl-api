@@ -3,63 +3,42 @@ package vn.edu.uit.swrlapi.collector.impl;
  * @author Chuong Dang, University of Information and Technology, 
  * 		   Faculty of Computer Network and Telecommunication, Date: Oct 14, 2014
  */
+
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.drools.command.GetDefaultValue;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
 /**
  * Collect all comparison SWRL Built-in and associated Classes
  */
 public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
-	
+
+	private static final Set<SWRLBuiltInsVocabulary> compareVocab =
+			new HashSet<SWRLBuiltInsVocabulary>() {
+				private static final long serialVersionUID = 1L;
+
+				{
+					add(SWRLBuiltInsVocabulary.GREATER_THAN);
+					add(SWRLBuiltInsVocabulary.GREATER_THAN_OR_EQUAL);
+					add(SWRLBuiltInsVocabulary.EQUAL);
+					add(SWRLBuiltInsVocabulary.NOT_EQUAL);
+					add(SWRLBuiltInsVocabulary.LESS_THAN);
+					add(SWRLBuiltInsVocabulary.LESS_THAN_OR_EQUAL);
+				}
+			};
 	private final Set<SWRLRule> processedRules;
 	private final Map<OWLDataProperty,Set<SWRLLiteralArgument>> dpArgs;
 	private final Set<SWRLDataPropertyAtom> processedProps;
 	private final Set<SWRLLiteralArgument> processedLiteralArgs;
-	
 	private final Map<OWLDataProperty,Set<SWRLDArgument>> dpDArgs;
 	private final Set<SWRLVariable> processedVars;
 	/* Class to find suggestion */
 	private final OWLClass  cls;
 	/* IArgument */
 	private SWRLIArgument individual;
-	
-	private static final Set<SWRLBuiltInsVocabulary> compareVocab = 
-			new HashSet<SWRLBuiltInsVocabulary>() { 
-		private static final long serialVersionUID = 1L;
-		{
-			add(SWRLBuiltInsVocabulary.GREATER_THAN);
-			add(SWRLBuiltInsVocabulary.GREATER_THAN_OR_EQUAL);
-			add(SWRLBuiltInsVocabulary.EQUAL);
-			add(SWRLBuiltInsVocabulary.NOT_EQUAL);
-			add(SWRLBuiltInsVocabulary.LESS_THAN);
-			add(SWRLBuiltInsVocabulary.LESS_THAN_OR_EQUAL);
-		}
-	};
 	
 	public PossibleAnswersCollector(OWLClass cls) {
 		
@@ -101,7 +80,6 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 		}
 	}
 	/**
-	 * @param SWRLClassAtom
 	 * 		  visit ClassAtoms in rule body
 	 */
 	@Override
@@ -111,7 +89,6 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 		}
 	}
 	/**
-	 * @param SWRLDataRangeAtom 
 	 * 		  visit DataRangeAtom in rule body
 	 */
 	@Override
@@ -120,7 +97,6 @@ public class PossibleAnswersCollector implements SWRLObjectVisitor 	{
 		
 	}
 	/**
-	 * @param SWLObjectPropertyAtom
 	 * 		  visit SWLObjectPropertyAtom in rule body
 	 */
 	@Override
