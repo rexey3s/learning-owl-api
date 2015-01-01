@@ -184,6 +184,7 @@ public class App
 			}
 		}
 	}
+
 //	static void r2(int indexChild, int indexParent, OWLReasoner reasoner) {
 //		if(checkIndex(indexChild, classCount) && checkIndex(indexParent, classCount)) {
 //			JsonObject childJson
@@ -217,7 +218,7 @@ public class App
 		}
 	}
 
-
+	
 	static void comb2(int[] items) {
 		Arrays.sort(items);
 		kcomb(items, 0, 2, new int[2]);
